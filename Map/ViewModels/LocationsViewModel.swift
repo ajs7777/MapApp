@@ -19,7 +19,7 @@ class LocationsViewModel: ObservableObject {
     
     @Published var showLocationList = false
     @Published var mapRegion : MKCoordinateRegion = MKCoordinateRegion()
-        
+    
     let mapSpan =  MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
     
     init() {
@@ -45,5 +45,15 @@ class LocationsViewModel: ObservableObject {
     func showNextLocation(location: Location) {
         mapLocation = location
         showLocationList = false
+    }
+    
+    func nextButtonPressed() {
+        // Find the index of the current mapLocation in the locations list
+        if let currentIndex = locations.firstIndex(where: { $0.id == mapLocation.id }) {
+            // Calculate the next index, cycling back to 0 if we reach the end
+            let nextIndex = (currentIndex + 1) % locations.count
+            // Set the next location as the map location
+            mapLocation = locations[nextIndex]
+        }
     }
 }
