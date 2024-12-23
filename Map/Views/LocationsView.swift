@@ -23,6 +23,9 @@ struct LocationsView: View {
                 locationsPreviewStack
             }
         }
+        .sheet(item: $vm.sheetLocation, onDismiss: nil) { location in
+            LocationDetailView(location: location)
+        }
     }
 }
 
@@ -31,13 +34,12 @@ struct LocationsView: View {
         .environmentObject(LocationsViewModel())
 }
 
-
 extension LocationsView {
     
     private var header: some View {
         VStack {
             Button(action: vm.toggleLocationList) {
-                Text(vm.mapLocation.name + "," + vm.mapLocation.cityName)
+                Text(vm.mapLocation.name + ", " + vm.mapLocation.cityName)
                     .animation(.none, value: vm.locations)
                     .foregroundStyle(.primary)
                     .font(.title2)
@@ -52,7 +54,6 @@ extension LocationsView {
                             .padding()
                     })
             }
-            
             
             if vm.showLocationList{
                 LocationsListView()
@@ -88,4 +89,5 @@ extension LocationsView {
             }
         }
     }
+    
 }

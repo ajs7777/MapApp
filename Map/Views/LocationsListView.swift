@@ -19,7 +19,6 @@ struct LocationsListView: View {
                 } label: {
                     listRowViewStyle(location: location)
                 }
-     
             }
             .listRowBackground(Color.clear)
         }
