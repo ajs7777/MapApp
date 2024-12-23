@@ -12,6 +12,8 @@ struct LocationsView: View {
     
     @EnvironmentObject var vm: LocationsViewModel
     
+    let maxWidthForIpad: CGFloat = 700
+    
     var body: some View {
         ZStack {
             mapLyer
@@ -19,6 +21,7 @@ struct LocationsView: View {
             VStack(spacing: 0.0){
                 header
                     .padding(8)
+                    .frame(maxWidth: maxWidthForIpad)
                 Spacer()
                 locationsPreviewStack
             }
@@ -81,6 +84,8 @@ extension LocationsView {
             ForEach(vm.locations) { location in
                 if vm.mapLocation == location {
                     LocationPreviewView(location: location)
+                        .frame(maxWidth: maxWidthForIpad)
+                        .frame(maxWidth: .infinity)
                         .shadow(radius: 10)
                         .transition(.asymmetric(
                             insertion: .move(edge: .trailing),
